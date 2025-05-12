@@ -138,6 +138,18 @@ public class MyDodo extends Dodo
         turnRight();
     }
     public void climbOverFence ( ){
+    if  (fenceAhead() && !borderAhead()){
+    turnLeft();
+    move();
+    turnRight();
+    move();
+    move();
+    turnRight();
+    move();
+    turnLeft();
+    }else{
+    System.out.println ("alone at the edge of the universe ;D");
+    }
     
     }
 }
