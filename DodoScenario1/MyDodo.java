@@ -152,4 +152,20 @@ public class MyDodo extends Dodo
     }
     
     }
-}
+    public boolean grainAhead(){
+    move();
+    if (onGrain()){
+        turn180();
+        move();
+        turn180();
+        return true;
+    }else {
+        turn180();
+        move();
+        turn180();
+        return false;
+    }
+
+    }
+    
+    }
