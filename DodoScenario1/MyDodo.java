@@ -185,13 +185,8 @@ public class MyDodo extends Dodo
     public void gotoEgg() {
         
         Egg egg = findEgg();
-        
-        while (getX() != egg.getX()) {
+        while (!onEgg()) {
         move();
-        }
-        while (getY() != egg.getX()) {
-        turnRight()
-        move();
-        }
+    }
     }
 }
