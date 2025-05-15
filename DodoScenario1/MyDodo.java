@@ -167,5 +167,31 @@ public class MyDodo extends Dodo
     }
 
     }
-    
+    public boolean eggFinder(){
+    if (onEgg()){
+    return true;
+    }else{
+    return false;
     }
+    }
+    
+    public Egg findEgg() {
+        
+        Egg egg = getWorld().getObjects(Egg.class).getFirst();
+        
+        return egg;
+        
+    }
+    public void gotoEgg() {
+        
+        Egg egg = findEgg();
+        
+        while (getX() != egg.getX()) {
+        move();
+        }
+        while (getY() != egg.getX()) {
+        turnRight()
+        move();
+        }
+    }
+}
