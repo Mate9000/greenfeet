@@ -189,7 +189,9 @@ public abstract class Dodo extends Actor
     public boolean facingNorth () {
         return getDirection() == NORTH;
     }
-    
+        public boolean facingEast () {
+        return getDirection() == EAST;
+    }
     /**
      * Turns towards the left.
      */

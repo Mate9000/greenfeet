@@ -111,7 +111,14 @@ public class MyDodo extends Dodo
             move();
         }
     }
-
+    public void goBackToStartOfRowAndFaceBack(){
+        while( ! borderAhead() && !facingEast() ){
+            move();
+        } 
+        if(borderAhead()){
+            turn180();
+        }
+    }
     /**
      * Test if Dodo can lay an egg.
      *          (there is not already an egg in the cell)
