@@ -112,11 +112,24 @@ public class MyDodo extends Dodo
         }
     }
     public void goBackToStartOfRowAndFaceBack(){
-        while( ! borderAhead() && !facingEast() ){
+        while( ! borderAhead()){
             move();
         } 
-        if(borderAhead()){
+        while(borderAhead()){
             turn180();
+        } 
+        while( ! borderAhead()){
+            move();
+        } 
+        turn180();
+    }
+    public void walkToWorldEdgeClimbingOverFences() {
+        while (!borderAhead()) {
+            if (fenceAhead()) {
+                climbOverFence();
+            } else if (canMove()) {
+                move();
+            } 
         }
     }
     /**
@@ -172,7 +185,11 @@ public class MyDodo extends Dodo
         turn180();
         return false;
     }
-
+    }
+    public void stepOneCellBackwards(){
+    turn180();
+    move();
+    turn180();
     }
     public boolean eggFinder(){
     if (onEgg()){
@@ -195,5 +212,11 @@ public class MyDodo extends Dodo
         while (!onEgg()) {
         move();
     }
+    }
+    public void turnLeftDodo() {
+    turnLeft();
+    }
+    public void turnRightDodo() {
+    turnRight();
     }
 }
