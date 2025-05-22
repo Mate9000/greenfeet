@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class MyDodo extends Dodo
 {
     private int myNrOfEggsHatched;
-    
+
     public MyDodo() {
         super( EAST );
         myNrOfEggsHatched = 0;
@@ -67,7 +67,7 @@ public class MyDodo extends Dodo
             showError( "There was no egg in this cell" );
         }
     }
-    
+
     /**
      * Returns the number of eggs Dodo has hatched so far.
      * 
@@ -76,7 +76,7 @@ public class MyDodo extends Dodo
     public int getNrOfEggsHatched() {
         return myNrOfEggsHatched;
     }
-    
+
     /**
      * Move given number of cells forward in the current direction.
      * 
@@ -95,8 +95,6 @@ public class MyDodo extends Dodo
     }
 
     
-    
-    
     /**
      * Walks to edge of the world printing the coordinates at each step
      * 
@@ -111,6 +109,7 @@ public class MyDodo extends Dodo
             move();
         }
     }
+
     public void goBackToStartOfRowAndFaceBack(){
         while( ! borderAhead()){
             move();
@@ -123,6 +122,7 @@ public class MyDodo extends Dodo
         } 
         turn180();
     }
+
     public void walkToWorldEdgeClimbingOverFences() {
         while (!borderAhead()) {
             if (fenceAhead()) {
@@ -132,6 +132,7 @@ public class MyDodo extends Dodo
             } 
         }
     }
+
     /**
      * Test if Dodo can lay an egg.
      *          (there is not already an egg in the cell)
@@ -145,83 +146,101 @@ public class MyDodo extends Dodo
      */
 
     public boolean canLayEgg( ){
-      if( onEgg() ){
+        if( onEgg() ){
             return false;
             //ik heb hier gewoon return false toegevoegd
-      }else{
+        }else{
             return true;
-      }
+        }
     }  
-    
+
     public void turn180( ){
         turnRight();
         turnRight();
     }
+
     public void climbOverFence ( ){
-    if  (fenceAhead() && !borderAhead()){
-    turnLeft();
-    move();
-    turnRight();
-    move();
-    move();
-    turnRight();
-    move();
-    turnLeft();
-    }else{
-    System.out.println ("alone at the edge of the universe ;D");
+        if  (fenceAhead() && !borderAhead()){
+            turnLeft();
+            move();
+            turnRight();
+            move();
+            move();
+            turnRight();
+            move();
+            turnLeft();
+        }else{
+            System.out.println ("alone at the edge of the universe ;D");
+        }
+
     }
-    
-    }
+
     public boolean grainAhead(){
-    move();
-    if (onGrain()){
-        turn180();
         move();
-        turn180();
-        return true;
-    }else {
-        turn180();
-        move();
-        turn180();
-        return false;
+        if (onGrain()){
+            turn180();
+            move();
+            turn180();
+            return true;
+        }else {
+            turn180();
+            move();
+            turn180();
+            return false;
+        }
     }
-    }
+
     public void stepOneCellBackwards(){
-    turn180();
-    move();
-    turn180();
+        turn180();
+        move();
+        turn180();
     }
+
     public boolean eggFinder(){
-    if (onEgg()){
-    return true;
-    }else{
-    return false;
+        if (onEgg()){
+            return true;
+        }else{
+            return false;
+        }
     }
-    }
-    
+
     public Egg findEgg() {
-        
+
         Egg egg = getWorld().getObjects(Egg.class).getFirst();
-        
+
         return egg;
-        
+
     }
+
     public void gotoEgg() {
-        
+
         Egg egg = findEgg();
         while (!onEgg()) {
-        move();
+            move();
+        }
     }
-    }
+
     public void turnLeftDodo() {
-    turnLeft();
+        turnLeft();
     }
+
     public void turnRightDodo() {
-    turnRight();
+        turnRight();
     }
+
     public void faceEast(){
-    while (! facingEast()){
-    turnLeft();
+        while (! facingEast()){
+            turnLeft();
+        }
     }
+
+    public void walkingArounFencedArea(){
+        while (!onEgg()) {
+            move();
+            turnRight();
+            while (fenceAhead()){
+            turnLeft();
+            }
+        }
     }
 }
