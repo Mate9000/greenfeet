@@ -219,4 +219,9 @@ public class MyDodo extends Dodo
     public void turnRightDodo() {
     turnRight();
     }
+    public void faceEast(){
+    while (! facingEast()){
+    turnLeft();
+    }
+    }
 }
