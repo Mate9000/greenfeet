@@ -258,8 +258,21 @@ public class MyDodo extends Dodo
         while(!borderAhead()){
             move();
             if (onNest() && !onEgg()){
-              layEgg(); 
+                layEgg(); 
             }
+        }
+    }
+
+    public void nestFillerAvoidingFences(){
+        while(!borderAhead()){
+            if (onNest() && !onEgg()){
+                layEgg(); 
+            }
+            else if (fenceAhead()) {
+                climbOverFence();
+            } else if (canMove()) {
+                move();
+            } 
         }
     }
 }
