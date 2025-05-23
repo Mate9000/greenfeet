@@ -94,7 +94,6 @@ public class MyDodo extends Dodo
         }
     }
 
-    
     /**
      * Walks to edge of the world printing the coordinates at each step
      * 
@@ -107,6 +106,17 @@ public class MyDodo extends Dodo
         while( ! borderAhead() ){
             System.out.println (getX() + " " + getY());
             move();
+        }
+    }
+
+    public void pickUpGrainsAndPrintCoordinates(){
+        while(!borderAhead()){
+            move();
+
+            if (onGrain()) {
+                System.out.println (getX() + " " + getY());
+                pickUpGrain();
+            }
         }
     }
 
@@ -239,8 +249,9 @@ public class MyDodo extends Dodo
             move();
             turnRight();
             while (fenceAhead()){
-            turnLeft();
+                turnLeft();
             }
         }
     }
+    public void 
 }
