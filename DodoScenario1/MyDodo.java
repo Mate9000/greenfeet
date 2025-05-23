@@ -94,6 +94,16 @@ public class MyDodo extends Dodo
         }
     }
 
+    public void layTrailOfEggs( int distance ) {
+        int nrStepsTaken = 0;               // set counter to 0
+        while ( nrStepsTaken < distance ) { // check if more steps must be taken  
+            layEgg();
+            move();                         // take a step
+            nrStepsTaken++;                 // increment the counter
+        }
+            layEgg();
+    }
+
     /**
      * Walks to edge of the world printing the coordinates at each step
      * 
