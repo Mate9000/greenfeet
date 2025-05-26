@@ -101,7 +101,7 @@ public class MyDodo extends Dodo
             move();                         // take a step
             nrStepsTaken++;                 // increment the counter
         }
-            layEgg();
+        layEgg();
     }
 
     /**
@@ -283,6 +283,21 @@ public class MyDodo extends Dodo
             } else if (canMove()) {
                 move();
             } 
+        }
+    }
+
+    public void eggTrailToNest(){
+        while (eggAhead()){
+            move();
+            pickUpEgg();
+            while (!eggAhead()){
+                turnLeft();
+                if(nestAhead()){
+                    move();
+                    layEgg(); 
+                    break;
+                }
+            }
         }
     }
 }
