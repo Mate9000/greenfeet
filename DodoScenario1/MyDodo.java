@@ -300,4 +300,17 @@ public class MyDodo extends Dodo
             }
         }
     }
+
+    public void mazeSolver(){
+        while (!onNest()) {
+            move();
+            turnRight();
+            while (fenceAhead()){
+                turnLeft();
+            }
+            if (onNest()){
+            System.out.println("MAZE SOLVED");
+            }
+        }
+    }
 }
