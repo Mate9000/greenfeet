@@ -9,6 +9,6 @@ import greenfoot.*;
 public class GoldenEgg extends Egg
 {
     public GoldenEgg() {
-        super( 5 );
+        super( 10 );
     }
 }
