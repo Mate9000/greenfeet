@@ -8,7 +8,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class MyDodo extends Dodo
 {
     private int myNrOfEggsHatched;
-
     public MyDodo() {
         super( EAST );
         myNrOfEggsHatched = 0;
@@ -309,8 +308,17 @@ public class MyDodo extends Dodo
                 turnLeft();
             }
             if (onNest()){
-            System.out.println("MAZE SOLVED");
+                System.out.println("MAZE SOLVED");
             }
         }
+    }  
+
+    public void amountOfBlueEggs() {
+        int eggCount = getWorld().getObjects(BlueEgg.class).size();
+        System.out.println("Number of BlueEggs on the map: " + eggCount);
+    }
+
+    public void monumentOfEggs(){
+
     }
 }
