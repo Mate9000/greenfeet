@@ -8,6 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class MyDodo extends Dodo
 {
     private int myNrOfEggsHatched;
+    //int eggCount = getWorld().getObjects(BlueEgg.class).size();
     public MyDodo() {
         super( EAST );
         myNrOfEggsHatched = 0;
@@ -130,12 +131,7 @@ public class MyDodo extends Dodo
     }
 
     public void goBackToStartOfRowAndFaceBack(){
-        while( ! borderAhead()){
-            move();
-        } 
-        while(borderAhead()){
-            turn180();
-        } 
+        turn180();
         while( ! borderAhead()){
             move();
         } 
@@ -245,7 +241,7 @@ public class MyDodo extends Dodo
 
     public void turnRightDodo() {
         turnRight();
-    }
+    } 
 
     public void faceEast(){
         while (! facingEast()){
@@ -318,7 +314,21 @@ public class MyDodo extends Dodo
         System.out.println("Number of BlueEggs on the map: " + eggCount);
     }
 
-    public void monumentOfEggs(){
+    public void faceDirection(int direction){
+        while (getDirection() != direction){
+            turnLeft();
+        }
+    }
 
+    public void goDown() {
+        faceDirection(SOUTH);
+        move();
+        faceDirection(EAST);
+    }
+
+    public void monumentOfEggs(){
+        for (int i = 0; i < getWorld().getHeight(); i++) {
+        go
+        }
     }
 }
