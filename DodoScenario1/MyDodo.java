@@ -369,13 +369,17 @@ public class MyDodo extends Dodo
 
     public void monumentOfEggs3(){
         int amountOfEggs = 1;
-        int a = 6;
+        int a = getWorld().getWidth();
+        int y = a / 2;
         for (int i = 0; i < getWorld().getHeight(); i++) {
-            gotoLocation(a, i);
+            gotoLocation(y, i);
             faceDirection(EAST);
             layTrailOfEggs(amountOfEggs);
             amountOfEggs+=2;
-            a--;
+            y--;
+            if (y == 0){
+                break;
+            }
         } 
     }
 }
