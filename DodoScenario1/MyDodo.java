@@ -95,13 +95,12 @@ public class MyDodo extends Dodo
     }
 
     public void layTrailOfEggs( int distance ) {
-        int nrStepsTaken = 0;               // set counter to 0
-        while ( nrStepsTaken < distance ) { // check if more steps must be taken  
+        int nrStepsTaken = 0;               
+        while ( nrStepsTaken < distance ) { 
             layEgg();
-            move();                         // take a step
-            nrStepsTaken++;                 // increment the counter
+            move();
+            nrStepsTaken++;
         }
-        layEgg();
     }
 
     /**
@@ -234,7 +233,7 @@ public class MyDodo extends Dodo
             move();
         }
     }
-    
+
     public void gotoLocation(int coordX, int coordY) {
         while (getX() < coordX) {
             faceDirection(EAST);
@@ -347,14 +346,36 @@ public class MyDodo extends Dodo
 
     public void monumentOfEggs(){
         for (int i = 0; i < getWorld().getHeight(); i++) {
-        gotoLocation(0, 1);
-        faceDirection(EAST);
-        int a = i;
-        while (a >= 0){
-            layEgg();
-            move();
+            gotoLocation(0, i);
+            faceDirection(EAST);
+            int a = i;
+            while (a >= 0){
+                layEgg();
+                move();
+                a--;
+            }
+        }
+    }
+
+    public void monumentOfEggs2(){
+        int amountOfEggs = 1;
+        for (int i = 0; i < getWorld().getHeight(); i++) {
+            gotoLocation(0, i);
+            faceDirection(EAST);
+            layTrailOfEggs(amountOfEggs);
+            amountOfEggs*=2;
+        } 
+    }
+
+    public void monumentOfEggs3(){
+        int amountOfEggs = 1;
+        int a = 6;
+        for (int i = 0; i < getWorld().getHeight(); i++) {
+            gotoLocation(a, i);
+            faceDirection(EAST);
+            layTrailOfEggs(amountOfEggs);
+            amountOfEggs+=2;
             a--;
-        }
-        }
+        } 
     }
 }
