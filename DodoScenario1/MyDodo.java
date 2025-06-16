@@ -234,6 +234,25 @@ public class MyDodo extends Dodo
             move();
         }
     }
+    
+    public void gotoLocation(int coordX, int coordY) {
+        while (getX() < coordX) {
+            faceDirection(EAST);
+            move();
+        }
+        while (getX() > coordX) {
+            faceDirection(WEST);
+            move();
+        }
+        while (getY() < coordY) {
+            faceDirection(SOUTH);
+            move();
+        }
+        while (getY() > coordY) {
+            faceDirection(NORTH);
+            move();
+        }
+    }
 
     public void turnLeftDodo() {
         turnLeft();
@@ -328,7 +347,14 @@ public class MyDodo extends Dodo
 
     public void monumentOfEggs(){
         for (int i = 0; i < getWorld().getHeight(); i++) {
-        go
+        gotoLocation(0, 1);
+        faceDirection(EAST);
+        int a = i;
+        while (a >= 0){
+            layEgg();
+            move();
+            a--;
+        }
         }
     }
 }
