@@ -219,15 +219,11 @@ public class MyDodo extends Dodo
     }
 
     public Egg findEgg() {
-
         Egg egg = getWorld().getObjects(Egg.class).getFirst();
-
         return egg;
-
     }
 
     public void gotoEgg() {
-
         Egg egg = findEgg();
         while (!onEgg()) {
             move();
@@ -381,5 +377,9 @@ public class MyDodo extends Dodo
                 break;
             }
         } 
+    }
+
+    public void pariteitsbit() {
+
     }
 }

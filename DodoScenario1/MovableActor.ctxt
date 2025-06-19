@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=MovableActor
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ MovableActor\ here.\r\n\ \r\n\ @author\ Sjaak\ Smetsers\ &\ Renske\ Smetsers-Weeda\r\n\ @version\ 3.0\ --\ 01-01-2017\r\n
+comment1.params=direction
+comment1.target=void\ step(int)
+comment2.params=direction
+comment2.target=boolean\ borderAhead(int)
+comment3.params=direction\ cls
+comment3.target=greenfoot.Actor\ getActorAhead(int,\ java.lang.Class)
+comment4.params=cls
+comment4.target=greenfoot.Actor\ getActor(java.lang.Class)
+comment5.params=err_msg
+comment5.target=void\ showError(java.lang.String)
+numComments=6

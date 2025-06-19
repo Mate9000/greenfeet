@@ -8,7 +8,7 @@ import greenfoot.*;
 public class BlueEgg extends Egg
 {
     public BlueEgg () {
-        super( 2 );
+        super( 1 );
     }
 
     private boolean hasABlueEgg() {
