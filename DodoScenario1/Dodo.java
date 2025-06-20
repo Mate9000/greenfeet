@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
  * The class Dodo.
@@ -74,6 +75,10 @@ public abstract class Dodo extends Actor
 
     public Egg getEgg() {
         return getActor( Egg.class );
+    }
+    
+    public List<Egg> getAllEggs() {
+        return getWorld().getObjects(Egg.class);
     }
 
     public Egg pickUpEgg() {
