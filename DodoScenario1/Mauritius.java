@@ -16,7 +16,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class Mauritius extends World
 {
-    private static final String WORLD_NAME = "level0.txt";
+    private static final String WORLD_NAME = "saved.txt";
     private static File WORLD_FILE = null;
 
     private static final int MAXWIDTH = 12, MAXHEIGHT = 12, CELLSIZE = 60;

@@ -219,24 +219,20 @@ public class MyDodo extends Dodo
     }
 
     public Egg findEgg() {
-        Egg egg = getWorld().getObjects(Egg.class).getFirst();
-        return egg;
+        return getWorld().getObjects(Egg.class).getFirst();
     }
 
-    public void goToEgg(Egg egg) {
-        while (!onEgg()) {
-            move();
-            int distanceX = egg.getX() - getX();
-            int distanceY = egg.getY() - getY();
-            if (egg.getX() < getX()) {
-                turn180();
+    public void goToEgg() {
+        Egg egg = findEgg();
+        int eggX = egg.getX();
+        int eggY = egg.getY();
+        for (Egg eggs : getAllEggs()) {
+            while (!onEgg()) {
+                gotoLocation(eggX, eggY);
             }
+
             if (onEgg()){
-            pickUpEgg();
-            turnRight();
-            }
-            else if (fenceAhead()){
-            walkingArounFencedArea();
+                pickUpEgg();
             }
         }
     }
@@ -333,11 +329,11 @@ public class MyDodo extends Dodo
             }
         }
     }  
-    
+
     public int amountOfEggs() {
         return getWorld().getObjects(Egg.class).size();
     }
-    
+
     public void amountOfBlueEggs() {
         int eggCount = getWorld().getObjects(BlueEgg.class).size();
         System.out.println("Number of BlueEggs on the map: " + eggCount);
