@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.NoSuchElementException;
 
 /**
  *
@@ -226,14 +227,29 @@ public class MyDodo extends Dodo
         Egg egg = findEgg();
         int eggX = egg.getX();
         int eggY = egg.getY();
-        for (Egg eggs : getAllEggs()) {
-            while (!onEgg()) {
-                gotoLocation(eggX, eggY);
-            }
 
-            if (onEgg()){
-                pickUpEgg();
+        try {
+            while (egg != null){
+                if (!onEgg()){
+                    gotoLocation(eggX, eggY);
+                    if(onEgg()){
+                        pickUpEgg();
+                    }
+                }
+                else if (fenceAhead()){
+                    climbOverFence();
+                }
+                else if (egg == null){
+                    break;
+                }
+                egg = findEgg();
+                eggX = egg.getX();
+                eggY = egg.getY(); 
             }
+        }
+        // e == exception
+        catch (NoSuchElementException e) {
+            showError("All eggs are collected!");
         }
     }
 
