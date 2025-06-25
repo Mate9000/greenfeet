@@ -224,7 +224,9 @@ public class MyDodo extends Dodo
     }
 
     public void goToEgg() {
+        Egg closestEgg = null;
         Egg egg = findEgg();
+        int closest = Integer.MAX_VALUE;
         int eggX = egg.getX();
         int eggY = egg.getY();
 
@@ -251,6 +253,19 @@ public class MyDodo extends Dodo
         catch (NoSuchElementException e) {
             showError("All eggs are collected!");
         }
+        for (Egg egg2 : getAllEggs()) {
+            int eggXX = Math.abs(egg.getX() - getX());
+            int eggYY = Math.abs(egg.getY() - getY());
+            int distance = eggXX + eggYY;
+
+            if (distance <= closest) {
+                closest = distance;
+                closestEgg = egg;
+                //System.out.println(getEggValue());
+            }
+
+        }
+        return closestEgg;
     }
 
     public void gotoLocation(int coordX, int coordY) {
