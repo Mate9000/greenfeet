@@ -9,6 +9,8 @@ import java.util.NoSuchElementException;
 public class MyDodo extends Dodo
 {
     private int myNrOfEggsHatched;
+    private int score = 0;
+    private int steps = 0;
     //int eggCount = getWorld().getObjects(BlueEgg.class).size();
     public MyDodo() {
         super( EAST );
@@ -226,14 +228,14 @@ public class MyDodo extends Dodo
     public void goToEgg() {
         Egg closestEgg = null;
         Egg egg = findEgg();
-        int closest = Integer.MAX_VALUE;
         int eggX = egg.getX();
         int eggY = egg.getY();
 
         try {
             while (egg != null){
                 if (!onEgg()){
-                    gotoLocation(eggX, eggY);
+                    Egg temp = goToClosestEgg();
+                    gotoLocation(temp.getX(), temp.getY());
                     if(onEgg()){
                         pickUpEgg();
                     }
@@ -249,25 +251,44 @@ public class MyDodo extends Dodo
                 eggY = egg.getY(); 
             }
         }
-        // e == exception
+        // e == exception niet vergeten mate! (gezegt door mate)
         catch (NoSuchElementException e) {
             showError("All eggs are collected!");
         }
-        for (Egg egg2 : getAllEggs()) {
-            int eggXX = Math.abs(egg.getX() - getX());
-            int eggYY = Math.abs(egg.getY() - getY());
-            int distance = eggXX + eggYY;
 
+    }
+
+    public Egg goToClosestEgg(){
+        Egg closestEgg = null;
+        int closest = Integer.MAX_VALUE;
+        for (Egg egg : getAllEggs()) {
+            int eggX = Math.abs(egg.getX() - getX());
+            int eggY = Math.abs(egg.getY() - getY());
+            int distance = eggX + eggY;
             if (distance <= closest) {
                 closest = distance;
                 closestEgg = egg;
-                //System.out.println(getEggValue());
             }
-
         }
         return closestEgg;
     }
 
+    public void collectAllEggs() {
+        Egg egg = goToClosestEgg();
+        while (steps < Mauritius.MAXSTEPS && egg != null) {
+            goToEgg();
+            egg = goToClosestEgg();
+        }
+        showError("I'm stuck!");
+        lowerScore();
+    }
+
+        public void lowerScore() {
+        Mauritius world = getWorldOfType(Mauritius.class);
+        world.updateScore(Mauritius.MAXSTEPS - steps, score);
+    }
+
+    
     public void gotoLocation(int coordX, int coordY) {
         while (getX() < coordX) {
             faceDirection(EAST);
