@@ -1,5 +1,4 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import java.util.NoSuchElementException;
 
 /**
  *
@@ -11,7 +10,7 @@ public class MyDodo extends Dodo
     private int myNrOfEggsHatched;
     private int score = 0;
     private int steps = 0;
-    //int eggCount = getWorld().getObjects(BlueEgg.class).size();
+    
     public MyDodo() {
         super( EAST );
         myNrOfEggsHatched = 0;
@@ -32,7 +31,8 @@ public class MyDodo extends Dodo
             step();
             steps++;
             lowerSteps();
-        } else {
+        }
+        else {
             showError( "I'm stuck!" );
         }
     }
@@ -49,7 +49,7 @@ public class MyDodo extends Dodo
      *                      (an obstruction or end of world ahead)
      */
     public boolean canMove() {
-        if ( borderAhead() || fenceAhead() ){
+        if ( borderAhead() || fenceAhead() || Mauritius.MAXSTEPS <= steps){
             return false;
         } else {
             return true;
@@ -66,8 +66,9 @@ public class MyDodo extends Dodo
      */    
     public void hatchEgg () {
         if ( onEgg() ) {
-            pickUpEgg();
+            Egg egg = pickUpEgg();
             myNrOfEggsHatched++;
+            score += egg.getValue();
         } else {
             showError( "There was no egg in this cell" );
         }
@@ -227,49 +228,40 @@ public class MyDodo extends Dodo
         return getWorld().getObjects(Egg.class).getFirst();
     }
 
-    public void goToEgg() {
-        Egg closestEgg = null;
-        Egg egg = findEgg();
-        int eggX = egg.getX();
-        int eggY = egg.getY();
-        try {
-            while (egg != null){
-                if (!onEgg()){
-                    Egg temp = goToClosestEgg();
-                    gotoLocation(temp.getX(), temp.getY());
-                    if(onEgg()){
-                        pickUpEgg();
-                    }
-                }
-                else if (fenceAhead()){
-                    climbOverFence();
-                }
-                else if (egg == null){
-                    break;
-                }
-                egg = findEgg();
-                eggX = egg.getX();
-                eggY = egg.getY(); 
+    public void collectAllEggs() {
+        
+        Egg closestEgg = getClosestEgg();
+        
+        while (closestEgg != null){
+            
+            gotoLocation(closestEgg.getX(), closestEgg.getY());
+
+            if (steps >= Mauritius.MAXSTEPS) {
+                break;
             }
-        }
-        // e == exception niet vergeten mate! (gezegt door mate)
-        catch (NoSuchElementException e) {
-            showError("All eggs are collected!");
+            hatchEgg();
+            closestEgg = getClosestEgg();
         }
     }
 
-    public Egg goToClosestEgg(){
+    public Egg getClosestEgg(){
+        
         Egg closestEgg = null;
         int closest = Integer.MAX_VALUE;
+        
         for (Egg egg : getAllEggs()) {
+            
             int eggX = Math.abs(egg.getX() - getX());
             int eggY = Math.abs(egg.getY() - getY());
             int distance = eggX + eggY;
-            if (distance <= closest) {
+            
+            if (distance < closest) {
+                
                 closest = distance;
                 closestEgg = egg;
             }
         }
+        
         return closestEgg;
     }
 
@@ -278,20 +270,20 @@ public class MyDodo extends Dodo
         world.updateScore(Mauritius.MAXSTEPS - steps, score);
     }
 
-     public void gotoLocation(int coordX, int coordY) {
-        while (getX() < coordX) {
+    public void gotoLocation(int coordX, int coordY) {
+        while (getX() < coordX && steps < Mauritius.MAXSTEPS) {
             faceDirection(EAST);
             move();
         }
-        while (getX() > coordX) {
+        while (getX() > coordX && steps < Mauritius.MAXSTEPS) {
             faceDirection(WEST);
             move();
         }
-        while (getY() < coordY) {
+        while (getY() < coordY && steps < Mauritius.MAXSTEPS) {
             faceDirection(SOUTH);
             move();
         }
-        while (getY() > coordY) {
+        while (getY() > coordY && steps < Mauritius.MAXSTEPS) {
             faceDirection(NORTH);
             move();
         }
