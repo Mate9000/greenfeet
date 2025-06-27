@@ -30,6 +30,8 @@ public class MyDodo extends Dodo
     public void move() {
         if ( canMove() ) {
             step();
+            steps++;
+            lowerSteps();
         } else {
             showError( "I'm stuck!" );
         }
@@ -230,7 +232,6 @@ public class MyDodo extends Dodo
         Egg egg = findEgg();
         int eggX = egg.getX();
         int eggY = egg.getY();
-
         try {
             while (egg != null){
                 if (!onEgg()){
@@ -255,7 +256,6 @@ public class MyDodo extends Dodo
         catch (NoSuchElementException e) {
             showError("All eggs are collected!");
         }
-
     }
 
     public Egg goToClosestEgg(){
@@ -273,23 +273,12 @@ public class MyDodo extends Dodo
         return closestEgg;
     }
 
-    public void collectAllEggs() {
-        Egg egg = goToClosestEgg();
-        while (steps < Mauritius.MAXSTEPS && egg != null) {
-            goToEgg();
-            egg = goToClosestEgg();
-        }
-        showError("I'm stuck!");
-        lowerScore();
-    }
-
-        public void lowerScore() {
+    public void lowerSteps() {
         Mauritius world = getWorldOfType(Mauritius.class);
         world.updateScore(Mauritius.MAXSTEPS - steps, score);
     }
 
-    
-    public void gotoLocation(int coordX, int coordY) {
+     public void gotoLocation(int coordX, int coordY) {
         while (getX() < coordX) {
             faceDirection(EAST);
             move();

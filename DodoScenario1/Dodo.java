@@ -44,7 +44,7 @@ public abstract class Dodo extends Actor
             setRotation( 0 );
         } 
     }
-
+    
     public boolean fenceAhead() {
         return getActorAhead( Fence.class ) != null;
     }
