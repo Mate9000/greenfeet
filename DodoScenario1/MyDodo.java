@@ -10,7 +10,7 @@ public class MyDodo extends Dodo
     private int myNrOfEggsHatched;
     private int score = 0;
     private int steps = 0;
-    
+
     public MyDodo() {
         super( EAST );
         myNrOfEggsHatched = 0;
@@ -123,7 +123,9 @@ public class MyDodo extends Dodo
             move();
         }
     }
-
+    /**
+     * verytime it picks up grains it also prints where it was found
+     */
     public void pickUpGrainsAndPrintCoordinates(){
         while(!borderAhead()){
             move();
@@ -173,12 +175,16 @@ public class MyDodo extends Dodo
             return true;
         }
     }  
-
+    /**
+     * dodo will start to look backwards
+     */
     public void turn180( ){
         turnRight();
         turnRight();
     }
-
+    /**
+     * goes around the fence by turning alot of ways
+     */
     public void climbOverFence ( ){
         if  (fenceAhead() && !borderAhead()){
             turnLeft();
@@ -194,7 +200,9 @@ public class MyDodo extends Dodo
         }
 
     }
-
+    /**
+     * moves forward chcks for grain and goes back
+     */
     public boolean grainAhead(){
         move();
         if (onGrain()){
@@ -209,13 +217,17 @@ public class MyDodo extends Dodo
             return false;
         }
     }
-
+    /**
+     * turns 180 moves and turns 180 again
+    */
     public void stepOneCellBackwards(){
         turn180();
         move();
         turn180();
     }
-
+    /**
+     * just checks if doo is on the egg or not
+     */
     public boolean eggFinder(){
         if (onEgg()){
             return true;
@@ -223,17 +235,22 @@ public class MyDodo extends Dodo
             return false;
         }
     }
-
+    /**
+     * this picks up all the egg objects in the world
+     */
     public Egg findEgg() {
         return getWorld().getObjects(Egg.class).getFirst();
     }
 
+    /**
+     * this is the finished product where it picks up all the eggs (since the moving limit is 20 it will pick up the nearest eggs)
+     */
     public void collectAllEggs() {
-        
+
         Egg closestEgg = getClosestEgg();
-        
+
         while (closestEgg != null){
-            
+
             gotoLocation(closestEgg.getX(), closestEgg.getY());
 
             if (steps >= Mauritius.MAXSTEPS) {
@@ -243,33 +260,39 @@ public class MyDodo extends Dodo
             closestEgg = getClosestEgg();
         }
     }
-
+    /**
+     * with this i'm able to check for the nearest eggs from dodo to egg
+     */
     public Egg getClosestEgg(){
-        
+
         Egg closestEgg = null;
         int closest = Integer.MAX_VALUE;
-        
+
         for (Egg egg : getAllEggs()) {
-            
+
             int eggX = Math.abs(egg.getX() - getX());
             int eggY = Math.abs(egg.getY() - getY());
             int distance = eggX + eggY;
-            
+
             if (distance < closest) {
-                
+
                 closest = distance;
                 closestEgg = egg;
             }
         }
-        
+
         return closestEgg;
     }
-
+    /**
+     *  this is so the amount of steps left are lowered everytime it moves
+     */
     public void lowerSteps() {
         Mauritius world = getWorldOfType(Mauritius.class);
         world.updateScore(Mauritius.MAXSTEPS - steps, score);
     }
-
+    /**
+     * gotolocation asks first for x input and y input and if you put those 2 in the it goes to that coordinates
+     */
     public void gotoLocation(int coordX, int coordY) {
         while (getX() < coordX && steps < Mauritius.MAXSTEPS) {
             faceDirection(EAST);
@@ -288,21 +311,29 @@ public class MyDodo extends Dodo
             move();
         }
     }
-
+    /**
+     * turns left
+     */
     public void turnLeftDodo() {
         turnLeft();
     }
-
+    /**
+     * turns right
+     */
     public void turnRightDodo() {
         turnRight();
     } 
-
+        /**
+     * starts turning until its facing east then it stops
+     */
     public void faceEast(){
         while (! facingEast()){
             turnLeft();
         }
     }
-
+    /**
+     * 
+     */
     public void walkingArounFencedArea(){
         while (!onEgg()) {
             move();
@@ -312,7 +343,9 @@ public class MyDodo extends Dodo
             }
         }
     }
-
+        /**
+     *  walks in a straight line and lays eggs if hes on a nest that doesnt have a egg in it
+     */
     public void NestFiller(){
         while(!borderAhead()){
             move();
@@ -321,7 +354,9 @@ public class MyDodo extends Dodo
             }
         }
     }
-
+    /**
+     * just like nest filler but if there is a fence ahead then it hops over it
+     */
     public void nestFillerAvoidingFences(){
         while(!borderAhead()){
             if (onNest() && !onEgg()){
@@ -334,7 +369,9 @@ public class MyDodo extends Dodo
             } 
         }
     }
-
+    /**
+     * follows the eggs towards the nest
+     */
     public void eggTrailToNest(){
         while (eggAhead()){
             move();
@@ -349,7 +386,9 @@ public class MyDodo extends Dodo
             }
         }
     }
-
+    /**
+     * in this code it tries to solve a maze untill it reaches the nest
+     */
     public void mazeSolver(){
         while (!onNest()) {
             move();
@@ -362,28 +401,38 @@ public class MyDodo extends Dodo
             }
         }
     }  
-
+    /**
+     * picks up egg objects in the world
+     */
     public int amountOfEggs() {
         return getWorld().getObjects(Egg.class).size();
     }
-
+    /**
+     * picks up just the blue egg objects
+     */
     public void amountOfBlueEggs() {
         int eggCount = getWorld().getObjects(BlueEgg.class).size();
         System.out.println("Number of BlueEggs on the map: " + eggCount);
     }
-
+    /**
+     * turns left until it looks the way you want it to look (the one you input like South)
+     */
     public void faceDirection(int direction){
         while (getDirection() != direction){
             turnLeft();
         }
     }
-
+        /**
+     * turns left until its looking down then moves and looks back towards east
+     */
     public void goDown() {
         faceDirection(SOUTH);
         move();
         faceDirection(EAST);
     }
-
+    /**
+     * goes to 0, 0 and starts making a staircase
+     */
     public void monumentOfEggs(){
         for (int i = 0; i < getWorld().getHeight(); i++) {
             gotoLocation(0, i);
@@ -396,7 +445,9 @@ public class MyDodo extends Dodo
             }
         }
     }
-
+    /**
+     * starts making a staircase multiplicitifly so if it places 1 then next row 2 then 4 etc
+     */
     public void monumentOfEggs2(){
         int amountOfEggs = 1;
         for (int i = 0; i < getWorld().getHeight(); i++) {
@@ -406,7 +457,9 @@ public class MyDodo extends Dodo
             amountOfEggs*=2;
         } 
     }
-
+    /**
+     * goes up somewhere in the middle and starts to make a pyramid until it cant
+     */
     public void monumentOfEggs3(){
         int amountOfEggs = 1;
         int a = getWorld().getWidth();
